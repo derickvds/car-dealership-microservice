@@ -13,7 +13,7 @@ namespace Cars.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize("ClientIdPolicy")]
     public class CarsController : ControllerBase
     {
         private readonly CarsAPIContext _context;
