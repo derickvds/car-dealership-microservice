@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cars.API.Data;
 using Cars.API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cars.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CarsController : ControllerBase
     {
         private readonly CarsAPIContext _context;
