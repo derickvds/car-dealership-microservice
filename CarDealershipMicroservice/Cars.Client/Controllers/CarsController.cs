@@ -6,22 +6,49 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Cars.Client.Models;
 using Cars.Client.ApiServices;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Cars.Client.Controllers
 {
+    [Authorize]
     public class CarsController : Controller
-    {
+    {        
         private readonly ICarApiService _carApiService;
 
+
         public CarsController(ICarApiService carApiService)
-        {
+        {            
             _carApiService = carApiService ?? throw new ArgumentNullException(nameof(carApiService));
         }
 
         // GET: Cars
         public async Task<IActionResult> Index()
         {
+            await LogTokenAndClaims();
             return View(await _carApiService.GetCars());
+        }
+
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+        }
+
+        public async Task LogTokenAndClaims()
+        {
+            var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
+
+            Debug.WriteLine($"Identity token: {identityToken}");
+
+            foreach (var claim in User.Claims)
+            {
+                Debug.WriteLine($"Claim type: {claim.Type} - Claim value: {claim.Value}");
+            }
         }
 
         // GET: Cars/Details/5
