@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using Cars.Client.ApiServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Net.Http.Headers;
+using Cars.Client.HttpHandlers;
+using IdentityModel.Client;
 
 namespace Cars.Client
 {
@@ -51,6 +54,34 @@ namespace Cars.Client
 
                     options.GetClaimsFromUserInfoEndpoint = true;
                 });
+
+            // http operations
+
+            // 1 create an HttpClient used for accessing the Movies.API
+            services.AddTransient<AuthenticationDelegatingHandler>();
+
+            services.AddHttpClient("CarAPIClient", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5001/");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            // 2 create an HttpClient used for accessing the IDP
+            services.AddHttpClient("IDPClient", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5005/");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            });
+
+            services.AddSingleton(new ClientCredentialsTokenRequest
+            {
+                Address = "https://localhost:5005/connect/token",
+                ClientId = "carClient",
+                ClientSecret = "secret",
+                Scope = "carAPI"
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
