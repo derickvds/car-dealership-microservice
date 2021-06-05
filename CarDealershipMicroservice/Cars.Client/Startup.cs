@@ -47,9 +47,10 @@ namespace Cars.Client
                     options.ClientSecret = "secret";
                     options.ResponseType = "code id_token";
 
-                    options.Scope.Add("openid");
-                    options.Scope.Add("profile");
                     options.Scope.Add("carAPI");
+
+                    options.Scope.Add("email");
+                    options.Scope.Add("address");
 
                     options.SaveTokens = true;
 

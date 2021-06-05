@@ -48,7 +48,10 @@ namespace IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "carAPI"
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Address,
+                        "carAPI",
+                        "roles"
                     }
                 }
             };
@@ -69,7 +72,14 @@ namespace IdentityServer
             new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResources.Email(),
+                new IdentityResources.Address(),
+                new IdentityResource(
+                    "roles",
+                    "Your role(s)",
+                    new List<string>(){ "rule" }
+                    ),
             };
 
         public static List<TestUser> TestUsers =>
