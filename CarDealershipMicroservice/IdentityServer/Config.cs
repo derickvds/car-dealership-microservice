@@ -27,7 +27,7 @@ namespace IdentityServer
                 },
                 new Client
                 {
-                    ClientId = "cars_client",
+                    ClientId = "cars_mvc_client",
                     ClientName = "Cars MVC Web App",
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowRememberConsent = false,
