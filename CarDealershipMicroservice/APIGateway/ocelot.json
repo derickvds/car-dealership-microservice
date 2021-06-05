@@ -10,7 +10,7 @@
           "Port": "5001"
         }
       ],
-      "UpstreamPathTemplate": "/Cars",
+      "UpstreamPathTemplate": "/cars",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "IdentityApiKey",

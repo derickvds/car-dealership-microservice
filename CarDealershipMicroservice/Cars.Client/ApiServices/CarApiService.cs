@@ -44,7 +44,7 @@ namespace Cars.Client.ApiServices
 
             var request = new HttpRequestMessage(
                 HttpMethod.Get,
-                "/api/cars/");
+                "/cars");
 
             var response = await httpClient.SendAsync(
                 request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
