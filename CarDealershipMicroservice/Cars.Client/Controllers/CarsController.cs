@@ -33,6 +33,13 @@ namespace Cars.Client.Controllers
             return View(await _carApiService.GetCars());
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> OnlyAdmin()
+        {
+            var userInfo = await _carApiService.GetUserInfo();
+            return View(userInfo);
+        }
+
         public async Task Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

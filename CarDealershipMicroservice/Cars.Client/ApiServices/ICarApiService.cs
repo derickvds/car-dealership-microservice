@@ -13,5 +13,6 @@ namespace Cars.Client.ApiServices
         Task<Car> CreateCar(Car car);
         Task<Car> UpdateCar(Car car);
         Task DeleteCar(int id);
+        Task<UserInfoViewModel> GetUserInfo();
     }
 }
