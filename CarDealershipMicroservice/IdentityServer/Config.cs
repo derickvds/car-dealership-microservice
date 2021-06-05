@@ -78,7 +78,7 @@ namespace IdentityServer
                 new IdentityResource(
                     "roles",
                     "Your role(s)",
-                    new List<string>(){ "rule" }
+                    new List<string>(){ "role" }
                     ),
             };
 

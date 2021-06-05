@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Net.Http.Headers;
 using Cars.Client.HttpHandlers;
 using IdentityModel.Client;
+using Microsoft.IdentityModel.Tokens;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Cars.Client
 {
@@ -51,10 +54,19 @@ namespace Cars.Client
 
                     options.Scope.Add("email");
                     options.Scope.Add("address");
+                    options.Scope.Add("roles");
+
+                    options.ClaimActions.MapUniqueJsonKey("role", "role");
 
                     options.SaveTokens = true;
 
                     options.GetClaimsFromUserInfoEndpoint = true;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = JwtClaimTypes.GivenName,
+                        RoleClaimType = JwtClaimTypes.Role
+                    };
                 });
 
             // http operations
