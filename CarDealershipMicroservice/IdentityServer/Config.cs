@@ -29,8 +29,9 @@ namespace IdentityServer
                 {
                     ClientId = "cars_mvc_client",
                     ClientName = "Cars MVC Web App",
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.Hybrid,
                     AllowRememberConsent = false,
+                    RequirePkce = false,
                     RedirectUris = new List<string>()
                     {
                         "https://localhost:5002/signin-oidc"
@@ -46,7 +47,8 @@ namespace IdentityServer
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "carAPI"
                     }
                 }
             };

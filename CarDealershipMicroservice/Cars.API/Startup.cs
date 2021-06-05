@@ -50,7 +50,7 @@ namespace Cars.API
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "carClient"));
+                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "cars_mvc_client", "cars_mvc_client"));
             });
         }
 
