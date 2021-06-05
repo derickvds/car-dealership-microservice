@@ -1,9 +1,11 @@
-﻿using IdentityServer4;
+﻿using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IdentityServer
@@ -71,7 +73,17 @@ namespace IdentityServer
         public static List<TestUser> TestUsers =>
             new List<TestUser>
             {
-
+                new TestUser
+                {
+                    SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
+                    Username = "derick",
+                    Password = "1234",
+                    Claims = new List<Claim>
+                    {
+                        new Claim(JwtClaimTypes.GivenName, "mehmet"),
+                        new Claim(JwtClaimTypes.FamilyName, "ozkaya")
+                    }
+                }
             };
     }
 }
